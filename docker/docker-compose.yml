@@ -1,0 +1,68 @@
+# version: '3.9'
+
+# Name prefix for the containers.
+name: task-tracker
+
+# Service Definitions
+services:
+  # ----------- Nginx Service
+  nginx:
+    container_name: task-tracker-nginx
+    build:
+      context: .
+      dockerfile: containers/Dockerfile_nginx
+    ports:
+      - '80:80'
+    volumes:
+      - '../:/var/www/html'
+      - './nginx-conf:/etc/nginx/conf.d'
+    links:
+      - php
+    depends_on:
+      - php
+    networks:
+      - backend
+      - exposed
+
+  # ----------- PHP Service
+  php:
+    container_name: task-tracker-php
+    build:
+      context: .
+      dockerfile: containers/Dockerfile_php
+    volumes:
+      - '../:/var/www/html'
+    networks:
+      - backend
+      - exposed
+
+  # ----------- Mysql Service
+  mysql:
+    container_name: task-tracker-mysql
+    build:
+      context: .
+      dockerfile: containers/Dockerfile_mysql
+    volumes:
+      - ./initdb/create-user.sql:/data/application/create-user.sql
+      - 'mysql-data:/var/lib/mysql'
+    command: --init-file /data/application/create-user.sql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: abc123
+    networks:
+      - backend
+      - exposed
+
+volumes:
+  mysql-data:
+
+networks:
+  frontend:
+    driver: bridge
+  # Private network
+  backend:
+    driver: bridge
+    internal: true
+  exposed:
+    driver: bridge
