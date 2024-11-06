@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\TaskNotFoundException;
 use App\Http\Requests\CreateTaskRequest;
+use App\Http\Requests\GetAllTasksRequest;
 use App\Repositories\Interfaces\TaskRepositoryInterface;
 use Illuminate\Http\Response;
 
@@ -19,7 +20,7 @@ class TaskController extends Controller
      *
      * @return Response
      */
-    public function index(): Response
+    public function index(GetAllTasksRequest $request): Response
     {
         $tasks = $this->taskRepository->getAllTasks();
         $response = [

@@ -16,7 +16,9 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function getAllTasks(): array
     {
-        return Tasks::orderBy('id', 'desc')->get()->toArray();
+        $size = (request()->has('size') && !empty(request()->query('size'))) ? request()->query('size') : 20;
+
+        return Tasks::orderBy('id', 'desc')->paginate($size)->toArray();
     }
 
     /**
@@ -44,13 +46,10 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function updateTask(array $data, string $id): Tasks
     {
-        Tasks::findOr($id, function() {
-            throw new TaskNotFoundException('Task not found for the given id.');
-        });
+        $task = $this->getTask($id);
+        $task->update($data);
 
-        Tasks::where('id', $id)->update($data);
-
-        return Tasks::find($id);
+        return $task;
     }
 
     /**
@@ -58,10 +57,7 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function deleteTask(string $id): void
     {
-        Tasks::findOr($id, function() {
-            throw new TaskNotFoundException('Task not found for the given id.');
-        });
-
-        Tasks::where('id', $id)->delete();
+        $task = $this->getTask($id);
+        $task->delete();
     }
 }
