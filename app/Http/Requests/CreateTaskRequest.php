@@ -4,10 +4,15 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * CreateTaskRequest will be used to validate the task data when storing and updating a task.
+ */
 class CreateTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @return bool
      */
     public function authorize(): bool
     {
@@ -22,9 +27,9 @@ class CreateTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255',
-            'description' => '',
-            'status' => 'required|in:PENDING,COMPLETED',
+            'title'         => 'required|max:255',
+            'description'   => '',
+            'status'        => 'required|in:PENDING,COMPLETED',
         ];
     }
 }

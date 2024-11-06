@@ -6,12 +6,17 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * XssSanitization will sanitize the input data from the request.
+ */
 class XssSanitization
 {
     /**
      * Sanitize the input data from an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param Request $request
+     * @param Closure $next
+     * @return Response
      */
     public function handle(Request $request, Closure $next): Response
     {

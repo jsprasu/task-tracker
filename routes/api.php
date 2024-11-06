@@ -2,12 +2,10 @@
 
 use App\Http\Controllers\TaskController;
 use App\Http\Middleware\XssSanitization;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
-
+/**
+ * Tasks resource APIs.
+ */
 Route::resource('tasks', TaskController::class)
     ->middleware(XssSanitization::class);
