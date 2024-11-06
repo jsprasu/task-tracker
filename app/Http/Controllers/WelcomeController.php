@@ -9,6 +9,6 @@ class WelcomeController extends Controller
 {
     public function __invoke(): View
     {
-        return view('task-tracker');
+        return view('tasks/task-tracker');
     }
 }
