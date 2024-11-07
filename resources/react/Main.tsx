@@ -1,13 +1,13 @@
 import React from "react";
 import Tasks from "./modules/Tasks";
+import { Button } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
 
 function Main() {
     return (
         <div>
-            <div className="header row row-lg-1 row-md-1">
-                <h2>Tasks</h2>
-            </div>
             <Tasks />
+            <ToastContainer />
         </div>
     );
 }

@@ -43,6 +43,7 @@ class TaskController extends Controller
     public function store(CreateTaskRequest $request): Response
     {
         $requestData = $request->only(['title', 'description', 'status']);
+        $requestData['description'] = nl2br($requestData['description']);
         $task = $this->taskRepository->createTask($requestData);
         $response = [
             'message'   => 'Task has been successfully saved.',

@@ -23,7 +23,8 @@ class XssSanitization
         $input = $request->all();
         array_walk_recursive($input, function(&$input) {
             $input = strip_tags($input);
-            $input = trim($input);
+            $input = ltrim($input);
+            $input = rtrim($input);
         });
         $request->merge($input);
 

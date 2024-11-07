@@ -18,7 +18,7 @@ class TaskRepository implements TaskRepositoryInterface
     {
         $size = (request()->has('size') && !empty(request()->query('size'))) ? request()->query('size') : 20;
 
-        return Tasks::orderBy('id', 'desc')->paginate($size)->toArray();
+        return Tasks::select(['id', 'title', 'status'])->orderBy('id', 'desc')->paginate($size)->toArray();
     }
 
     /**

@@ -2,3 +2,40 @@
     width: 100vw;
     height: 100vh;
 }
+
+.mg-t-20 {
+    margin-top: 20px !important;
+}
+
+.mg-b-20 {
+    margin-bottom: 20px !important;
+}
+
+.center-pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.form-control.is-valid,
+.was-validated .form-control:valid,
+.form-select.is-valid,
+.was-validated .form-select:valid {
+    border-color: #dee2e6 !important;
+    background-image: none !important;
+}
+
+.form-control.is-valid:focus,
+.was-validated .form-control:valid:focus,
+.form-select.is-valid:focus,
+.was-validated .form-select:valid:focus {
+    box-shadow: 0 0 0 .25rem rgba(13,110,253,.25) !important;
+}
+
+.task-show-label {
+    color: gray !important;
+}
+
+.table-max-height {
+    max-height: 665px;
+    overflow: auto;
+}
