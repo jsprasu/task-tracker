@@ -20,7 +20,10 @@ function Tasks() {
     const [deleteTaskId, setDeleteTaskId] = useState<number|null>(null);
     const [isTaskCreateFormOpen, setIsTaskCreateFormOpen] = useState<boolean>(false);
 
-    const preparePaginationItems = () => {
+    /**
+     * Prepare pagination page items based on response data.
+     */
+    const preparePaginationItems = (): void => {
         setPaginationItems([]);
         let items: any[] = [];
 
@@ -37,11 +40,19 @@ function Tasks() {
         }
     }
 
-    const handlePageItemClick = (pageNumber: number) => {
+    /**
+     * Handle pagination page item click.
+     *
+     * @param pageNumber
+     */
+    const handlePageItemClick = (pageNumber: number): void => {
         setPage(pageNumber);
     }
 
-    const loadTasksData = () => {
+    /**
+     * Load tasks data by calling the API endpoint.
+     */
+    const loadTasksData = (): void => {
         setLoadingTasks(true);
         setTotalPages(1);
         getTasks(page, size).then((tasksData) => {
@@ -51,26 +62,45 @@ function Tasks() {
         });
     }
 
-    const handleViewTask = (taskId: number) => {
+    /**
+     * Handle task view click.
+     *
+     * @param taskId
+     */
+    const handleViewTask = (taskId: number): void => {
         setViewTaskId(taskId);
     };
 
-    const handleDeleteTask = (taskId: number) => {
+    /**
+     * Handle task delete action button click.
+     *
+     * @param taskId
+     */
+    const handleDeleteTask = (taskId: number): void => {
         setDeleteTaskId(taskId);
     }
 
-    const deleteTaskItem = () => {
+    /**
+     * Delete a task by calling the API endpoint.
+     */
+    const deleteTaskItem = (): void => {
         deleteTask(deleteTaskId ?? 0).then(() => {
             setDeleteTaskId(null);
             loadTasksData();
         });
     }
 
-    const showTaskCreateForm = () => {
+    /**
+     * Show task create form.
+     */
+    const showTaskCreateForm = (): void => {
         setIsTaskCreateFormOpen(true);
     }
 
-    const handleTaskCreate = () => {
+    /**
+     * Handle task create button click.
+     */
+    const handleTaskCreate = (): void => {
         setIsTaskCreateFormOpen(false);
 
         if (page === 1) {

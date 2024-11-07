@@ -5,7 +5,10 @@ function ConfirmationPopup(props: any) {
     const {title, message, confirmText, cancelText, onConfirm, onCancel} = props;
     const [loading, setLoading] = useState<boolean>(false);
 
-    const handleConfirmClick = () => {
+    /**
+     * Handle confirm button click.
+     */
+    const handleConfirmClick = (): void => {
         setLoading(true);
         onConfirm();
     }

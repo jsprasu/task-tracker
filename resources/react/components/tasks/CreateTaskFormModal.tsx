@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
-import { createTask } from "../../utils/utils";
+import { createTask, TaskDataType } from "../../utils/utils";
 
 function CreateTaskFormModal(props: any) {
     const {onConfirm, onCancel} = props;
@@ -10,14 +10,19 @@ function CreateTaskFormModal(props: any) {
     const [taskDesc, setTaskDesc] = useState<string>('');
     const [taskStatus, setTaskStatus] = useState<string>('');
 
-    const handleConfirmClick = (event) => {
+    /**
+     * Handle Confirm button click.
+     *
+     * @param event
+     */
+    const handleConfirmClick = (event: React.MouseEvent<HTMLFormElement>): void => {
         const form = event.currentTarget;
         event.preventDefault();
         event.stopPropagation();
 
         if (form.checkValidity() !== false) {
             setLoading(true);
-            let taskData = {
+            let taskData: TaskDataType = {
                 title: taskTitle,
                 description: taskDesc,
                 status: taskStatus

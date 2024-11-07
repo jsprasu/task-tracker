@@ -2,17 +2,31 @@ import moment from 'moment';
 import axiosConfig from './../config/axiosConfig';
 import { toast } from 'react-toastify';
 
-type taskDataType = {
+export type TaskDataType = {
     title: string
     description: string
     status: string
 }
 
-export const getErrorMessage = (error: unknown) => {
+/**
+ * Get error message from error object.
+ *
+ * @param error
+ * @returns string
+ */
+export const getErrorMessage = (error: unknown): string => {
     if (error instanceof Error) return error.message;
+
     return String(error)
 }
 
+/**
+ * Convert given UTC time to local timezone with given format.
+ *
+ * @param datetime
+ * @param format
+ * @returns string
+ */
 export const convertUtcTimeToLocalTime = (
     datetime: string,
     format: string = 'MMMM Do YYYY, hh:mm:ss A'
@@ -20,7 +34,13 @@ export const convertUtcTimeToLocalTime = (
     return moment(moment.utc(datetime).toDate()).local().format(format)
 }
 
-export const showToastMessage = (type: string, message: string) => {
+/**
+ * Show toast message for given type and message.
+ *
+ * @param type
+ * @param message
+ */
+export const showToastMessage = (type: string, message: string): void => {
     switch (type) {
         case 'success':
             toast.success(message);
@@ -31,7 +51,14 @@ export const showToastMessage = (type: string, message: string) => {
     }
 }
 
-export const getTasks = async (page: number, size: number) => {
+/**
+ * Get all tasks.
+ *
+ * @param page
+ * @param size
+ * @returns Promise
+ */
+export const getTasks = async (page: number, size: number): Promise<any> => {
     try {
         const response = await axiosConfig.get(`/tasks?page=${page}&size=${size}`);
         const { data } = response.data;
@@ -39,13 +66,21 @@ export const getTasks = async (page: number, size: number) => {
         return data;
     } catch (err) {
         showToastMessage('error', getErrorMessage(err));
+
         return [];
     }
 }
 
-export const getTask = async (taskId: number) => {
+/**
+ * Get task details for given task id.
+ *
+ * @param taskId
+ * @returns Promise
+ */
+export const getTask = async (taskId: number): Promise<any> => {
     if (!taskId) {
         showToastMessage('error', "Task id is required");
+
         return;
     }
 
@@ -56,11 +91,18 @@ export const getTask = async (taskId: number) => {
         return data;
     } catch (err) {
         showToastMessage('error', getErrorMessage(err));
+
         return;
     }
 }
 
-export const createTask = async (taskData: taskDataType) => {
+/**
+ * Create task with input data.
+ *
+ * @param taskData
+ * @returns Promise
+ */
+export const createTask = async (taskData: TaskDataType): Promise<any> => {
     try {
         const response = await axiosConfig.post(`/tasks`, taskData);
         const { data, message } = response.data;
@@ -69,26 +111,21 @@ export const createTask = async (taskData: taskDataType) => {
         return data;
     } catch (err) {
         showToastMessage('error', getErrorMessage(err));
+
         return;
     }
 }
 
-// export const updateTask = async (taskData: taskDataType) => {
-//     try {
-//         const response = await axiosConfig.put(`/tasks/${task.id}`, taskData);
-//         const { data, message } = response.data;
-//         showToastMessage('success', message);
-
-//         return data;
-//     } catch (err) {
-//         showToastMessage('error', getErrorMessage(err));
-//         return;
-//     }
-// }
-
-export const deleteTask = async (taskId: number) => {
+/**
+ * Delete task for given id.
+ *
+ * @param taskId
+ * @returns Promise
+ */
+export const deleteTask = async (taskId: number): Promise<any> => {
     if (!taskId) {
         showToastMessage('error', "Task id is required");
+
         return;
     }
 
@@ -100,6 +137,7 @@ export const deleteTask = async (taskId: number) => {
         return true;
     } catch (err) {
         showToastMessage('error', getErrorMessage(err));
+
         return;
     }
 }

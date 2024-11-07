@@ -4,6 +4,11 @@ import { Badge } from "react-bootstrap";
 function StatusBadge(props: any) {
     const {taskStatus} = props;
 
+    /**
+     * Get badge role from status text.
+     *
+     * @returns string
+     */
     const getRoleFromStatus = (): string => {
         let role = '';
 
