@@ -12,7 +12,8 @@ services:
       context: .
       dockerfile: containers/Dockerfile_nginx
     ports:
-      - '80:80'
+      - '443:443'
+    #   - '80:80'
     volumes:
       - '../:/var/www/html'
       - './nginx-conf:/etc/nginx/conf.d'

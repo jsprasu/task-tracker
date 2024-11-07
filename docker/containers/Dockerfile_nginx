@@ -1,2 +1,7 @@
 # nginx
 FROM nginx:latest
+
+COPY containers/certs/cert.pem /etc/ssl/certs/
+COPY containers/certs/key.pem /etc/ssl/private/
+
+EXPOSE 443
