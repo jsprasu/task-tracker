@@ -74,9 +74,10 @@ function CreateTaskFormModal(props: any) {
                                 disabled={loading}
                                 value={taskStatus}
                                 onChange={(e) => {setTaskStatus(e.target.value)}}
+                                className={taskStatus === '' ? 'gray-select' : ''}
                                 required
                             >
-                                <option value="">-- Select --</option>
+                                <option value="" disabled>-- Select --</option>
                                 <option value="PENDING">Pending</option>
                                 <option value="COMPLETED">Completed</option>
                             </Form.Select>

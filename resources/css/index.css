@@ -40,6 +40,11 @@
     box-shadow: 0 0 0 .25rem rgba(13,110,253,.25) !important;
 }
 
+.form-control::placeholder, .gray-select {
+    font-size: 14px !important;
+    color: #98a0a8 !important;
+}
+
 .task-show-label {
     color: gray !important;
 }
@@ -57,6 +62,11 @@
 .task-link {
     color: #0d6efd !important;
     font-weight: 400 !important;
+    display: block;
+    max-width: 85%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .task-action-btn {
