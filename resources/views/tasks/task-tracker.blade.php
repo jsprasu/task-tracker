@@ -13,11 +13,10 @@
 <body>
     <div class="full-page">
         <div class="container-fluid main_container">
-            <div class="container">
+            <div class="container mg-t-20">
                 <div id="app"></div>
             </div>
         </div>
     </div>
-{{-- <div id="app" data-projects="{{ json_encode($projects) }}"></div> --}}
 </body>
 </html>

@@ -20,6 +20,17 @@ export const convertUtcTimeToLocalTime = (
     return moment(moment.utc(datetime).toDate()).local().format(format)
 }
 
+export const showToastMessage = (type: string, message: string) => {
+    switch (type) {
+        case 'success':
+            toast.success(message);
+            break;
+        case 'error':
+            toast.error(message);
+            break;
+    }
+}
+
 export const getTasks = async (page: number, size: number) => {
     try {
         const response = await axiosConfig.get(`/tasks?page=${page}&size=${size}`);
@@ -27,14 +38,14 @@ export const getTasks = async (page: number, size: number) => {
 
         return data;
     } catch (err) {
-        toast.error(getErrorMessage(err));
+        showToastMessage('error', getErrorMessage(err));
         return [];
     }
 }
 
 export const getTask = async (taskId: number) => {
     if (!taskId) {
-        toast.error("Task id is required");
+        showToastMessage('error', "Task id is required");
         return;
     }
 
@@ -44,7 +55,7 @@ export const getTask = async (taskId: number) => {
 
         return data;
     } catch (err) {
-        toast.error(getErrorMessage(err));
+        showToastMessage('error', getErrorMessage(err));
         return;
     }
 }
@@ -53,49 +64,42 @@ export const createTask = async (taskData: taskDataType) => {
     try {
         const response = await axiosConfig.post(`/tasks`, taskData);
         const { data, message } = response.data;
-        toast.success(message);
+        showToastMessage('success', message);
 
         return data;
     } catch (err) {
-        toast.error(getErrorMessage(err));
+        showToastMessage('error', getErrorMessage(err));
         return;
     }
 }
 
-// export const updateTask = async (task) => {
-//     if (!task.id) return;
-//     if (!task.title) {
-//         toast.error("Title is required!");
-//         return;
-//     }
-
+// export const updateTask = async (taskData: taskDataType) => {
 //     try {
-//         const response = await axiosConfig.put(`/tasks/${task.id}`, {
-//             title: task.title,
-//             description: task.description,
-//         });
-//         const { success, message } = response.data;
+//         const response = await axiosConfig.put(`/tasks/${task.id}`, taskData);
+//         const { data, message } = response.data;
+//         showToastMessage('success', message);
 
-//         toast[success ? 'success' : 'error'](message);
+//         return data;
 //     } catch (err) {
-//         toast.error(getErrorMessage(err));
+//         showToastMessage('error', getErrorMessage(err));
+//         return;
 //     }
 // }
 
 export const deleteTask = async (taskId: number) => {
     if (!taskId) {
-        toast.error("Task id is required");
+        showToastMessage('error', "Task id is required");
         return;
     }
 
     try {
         const response = await axiosConfig.delete(`/tasks/${taskId}`);
         const { message } = response.data;
-        toast.success('Task has been successfully deleted.');
+        showToastMessage('success', 'Task has been successfully deleted.');
 
         return true;
     } catch (err) {
-        toast.error(getErrorMessage(err));
+        showToastMessage('error', getErrorMessage(err));
         return;
     }
 }

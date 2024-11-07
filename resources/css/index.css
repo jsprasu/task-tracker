@@ -7,8 +7,17 @@
     margin-top: 20px !important;
 }
 
+.mg-t-50 {
+    margin-top: 50px !important;
+}
+
 .mg-b-20 {
     margin-bottom: 20px !important;
+}
+
+.tasks-loading-spinner {
+    height: 300px;
+    align-items: center;
 }
 
 .center-pagination {
@@ -36,6 +45,20 @@
 }
 
 .table-max-height {
-    max-height: 665px;
+    max-height: 650px;
     overflow: auto;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.task-link {
+    color: #0d6efd !important;
+    font-weight: 400 !important;
+}
+
+.task-action-btn {
+    padding: 1px 6px !important;
+}
+
+ul.pagination li {
+    margin: 2px !important;
 }

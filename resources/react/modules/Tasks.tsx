@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import { Button, Pagination, Spinner } from "react-bootstrap";
+import { Alert, Button, Pagination, Spinner } from "react-bootstrap";
 import { deleteTask, getTasks } from "../utils/utils";
 import StatusBadge from "../components/common/StatusBadge";
 import { Eye, Trash } from "react-bootstrap-icons";
@@ -89,7 +89,7 @@ function Tasks() {
     }, [totalPages]);
 
     return (
-        <div className="row">
+        <div className="mg-t-50">
             <div className="header row row-lg-1 row-md-1 mg-t-20 mg-b-20">
                 <div className="col-6">
                     <h2>Tasks</h2>
@@ -99,7 +99,7 @@ function Tasks() {
                 </div>
             </div>
             {loadingTasks &&
-                <div className="row">
+                <div className="row d-flex tasks-loading-spinner">
                     <div className="text-center">
                         <Spinner as="span" role="status" />
                     </div>
@@ -108,7 +108,9 @@ function Tasks() {
             {!loadingTasks && tasks.length == 0 &&
                 <div className="row">
                     <div className="text-center mg-t-20">
-                        <div>There are no tasks available.</div>
+                        <Alert variant={'dark'}>
+                            There are no tasks available.
+                        </Alert>
                     </div>
                 </div>
             }
@@ -129,15 +131,19 @@ function Tasks() {
                                     return (
                                         <tr key={index}>
                                             <td className="text-center">{task.id}</td>
-                                            <td>{task.title}</td>
+                                            <td>
+                                                <Alert.Link className="task-link" href="#" onClick={() => handleViewTask(task.id)}>
+                                                    {task.title}
+                                                </Alert.Link>
+                                            </td>
                                             <td className="text-center">
                                                 <StatusBadge taskStatus={task.status} />
                                             </td>
                                             <td className="text-center">
-                                                <Button variant="outline-dark" title="View task" onClick={() => handleViewTask(task.id)}>
+                                                <Button className="task-action-btn" variant="outline-dark" title="View task" onClick={() => handleViewTask(task.id)}>
                                                     <Eye />
                                                 </Button>{' '}
-                                                <Button variant="outline-dark" title="Delete task" onClick={() => handleDeleteTask(task.id)}>
+                                                <Button className="task-action-btn" variant="outline-dark" title="Delete task" onClick={() => handleDeleteTask(task.id)}>
                                                     <Trash />
                                                 </Button>
                                             </td>
